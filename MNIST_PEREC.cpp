@@ -4,62 +4,6 @@
 #include <SFML\Graphics.hpp>
 #include <algorithm>
 using namespace std;
-/*struct MNIST
-{
-std::vector <std::vector<std::vector<unsigned char>>> label;
-unsigned int count_of_images;
-unsigned int maxX;
-unsigned int maxY;
-MNIST(std::string nameimg, std::string namelbl)
-{
-FILE* file;
-fopen_s(&file, namelbl.c_str(), "rb");
-fseek(file, 4, SEEK_SET);
-count_of_images = maxX = maxY = 0;
-for (int i = 0; i < 4; i++)
-{
-count_of_images <<= 8;
-unsigned char k;
-fread(&k, 1, 1, file);
-count_of_images += unsigned int(k);
-}
-label.resize(10);
-std::vector<unsigned char> lbl(count_of_images);
-for (int i = 0; i < count_of_images; i++)
-{
-char k = 0;
-fread(&k, 1, 1, file);
-lbl[i] = k;
-}
-fclose(file);
-fopen_s(&file, nameimg.c_str(), "rb");
-fseek(file, 8, SEEK_SET);
-//count of rows
-for (int i = 0; i < 4; i++)
-{
-maxY << 8;
-int k = 0;
-fread(&k, 1, 1, file);
-maxY += k;
-}
-//columns
-for (int i = 0; i < 4; i++)
-{
-maxX << 8;
-int k = 0;
-fread(&k, 1, 1, file);
-maxX += k;
-}
-for (int i = 0; i < count_of_images; i++)
-{
-std::vector<unsigned char> p(maxX*maxY);
-for (int a = 0; a < maxY*maxX; a++)
-fread(&p[a], 1, 1, file);
-label[lbl[i]].push_back(p);
-}
-fclose(file);
-}
-};*/
 struct MNIST
 {
 private:
