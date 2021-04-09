@@ -2,9 +2,9 @@
 #define _KOEF 0.3f
 Bot::Bot() : neuron(1), pos(rand() % width, rand() % height), neuron2(1)
 {
-	maxHunger = (double)(rand() % 101) / 10;
-	hunger = _KOEF*maxHunger;
-	speed = 10.0 / maxHunger;
+	maxHunger = (double)(rand() % 101) / 10.0;
+	hunger = 0.5*maxHunger;
+	speed = 5.0 / maxHunger;
 }
 Bot Bot::Razm(Bot & second)
 {
@@ -14,8 +14,9 @@ Bot Bot::Razm(Bot & second)
 		second.neuron.weight[i] + (double)(rand() % 11) / 10.f - 0.5f;
 	hunger -= _KOEF * maxHunger;
 	second.hunger -= _KOEF * second.maxHunger;
-	damage += (double)((rand() % 10) + 1);
-	maxHunger += (double)((rand() % 2) - 1) * _KOEF;
+	ret.damage += (double)(rand() % 50) / 100.0 - 0.5;;
+	ret.maxHunger += (double)((rand() % 2) - 1) * _KOEF;
+	ret.speed = 10.0 / ret.maxHunger;
 	ret.pos = pos;
 	ret.pos.x += (float)(rand() % 101 - 50);
 	ret.pos.y += (float)(rand() % 101 - 50);

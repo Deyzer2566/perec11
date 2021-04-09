@@ -8,20 +8,15 @@
 #define width 800
 #define height 600
 using namespace std;
-void res(BOT & b)
+void res(BOT& b)
 {
 	std::vector<double> minh(b.size());
-	std::vector<double> mins(b.size());
 	for (int i = 0; i < b.size(); i++)
 	{
-		minh[i] = b[i].maxHunger;
-		mins[i] = b[i].speed;
+		minh[i] = b[i].maxHunger + b[i].speed;
 	}
-	std::vector<double>::iterator is = std::min_element(mins.begin(), mins.end()),
-		ih = std::min_element(minh.begin(), minh.end());
-	cout <<distance(minh.begin(), ih)<<": "<< *ih << endl;
-	cout <<distance(mins.begin(), is)<<": "<< *is << endl;
-	cout << "#################" << endl;
+	BOT::iterator it = std::max_element(minh.begin(), minh.end()) - minh.begin() + b.begin();
+	cout << distance(b.begin(), it) << ": " << it->maxHunger << " " << it->damage << " " << it->hunger << endl;
 }
 int main()
 {
@@ -29,8 +24,8 @@ int main()
 	srand(time(NULL));
 	#endif
 	sf::RenderWindow window(sf::VideoMode(width+100, height), "Evo");
-	vector<sf::Vector2f> fruit(800);
-	BOT bot(200);
+	vector<sf::Vector2f> fruit(200);
+	BOT bot(100);
 	for (int i = 0;i<bot.size();i++)
 		bot[i].neuron = Perceptron(3);
 	for (int i = 0; i < fruit.size(); i++)
@@ -82,7 +77,7 @@ int main()
 			for (int i = 0; i < bot.size();)
 			{
 				bot[i].update(fruit, bot, i);
-				if (bot[i].hunger <= 0.f)
+				if (bot[i].hunger <= 0.0)
 				{
 					//fruit.push_back(bot[i].pos);
 					bot.erase((bot.begin() + i));
@@ -96,7 +91,7 @@ int main()
 			}
 			res(bot);
 		}
-		for (std::vector<sf::Vector2f>::iterator it = fruit.begin(); it != fruit.end(); 
+		for (std::vector<sf::Vector2f>::iterator it = fruit.begin(); it != fruit.end();
 			++it)//отрисовка фруктов
 		{
 			sf::CircleShape c(10);
